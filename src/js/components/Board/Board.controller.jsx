@@ -92,11 +92,11 @@ const BoardController = () => {
   };
 
   React.useEffect(() => {
-    checkIfCompleted();
 
     if (boardData.length === 9) {
       setStatus(`It's a draw`);
     }
+    checkIfCompleted();
 
   }, [boardData]);
 
