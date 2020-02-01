@@ -1,5 +1,6 @@
 $square-background: #fbfbfb;
 $square-background-hover: #f2f1f7;
+$completed-color: #adffad; 
 
 .square {
     height: 100px;
@@ -14,5 +15,12 @@ $square-background-hover: #f2f1f7;
     &:hover {
         background: $square-background-hover;
         cursor: pointer;
+    }
+
+    &--completed {
+        background: $completed-color;
+    }
+    &--completed:hover {
+        background: $completed-color;
     }
 }

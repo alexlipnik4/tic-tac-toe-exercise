@@ -1,36 +1,28 @@
 import React from "react";
-import Square from "../Square/Square";
-import { Button } from '@rmwc/button';
-import './Board.scss';
+import { Button } from "@rmwc/button";
+import "./Board.scss";
 
-export default class Board extends React.Component {
-  renderSquare(i) {
-    return <Square />;
-  }
+const Board = props => (
+  <div className="board">
+    <div className="board__status">{props.status}</div>
+    <Button onClick={() => props.handleReset()}>Reset</Button>
 
-  render() {
-    const status = "Next player: X";
+    <div className="board__board-row">
+      {props.renderSquare(0)}
+      {props.renderSquare(1)}
+      {props.renderSquare(2)}
+    </div>
+    <div className="board__board-row">
+      {props.renderSquare(3)}
+      {props.renderSquare(4)}
+      {props.renderSquare(5)}
+    </div>
+    <div className="board__board-row">
+      {props.renderSquare(6)}
+      {props.renderSquare(7)}
+      {props.renderSquare(8)}
+    </div>
+  </div>
+);
 
-    return (
-      <div className="board">
-        <div className="board__status">{status}</div>
-        <Button>Reset</Button>
-        <div className="board__board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board__board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board__board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
-      </div>
-    );
-  }
-}
+export default Board;
