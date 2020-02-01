@@ -1,0 +1,10 @@
+.game {
+    height: 100vh;
+    padding: 80px;
+
+    &__board {
+        display: flex;
+        justify-content: center;
+        height: 100%;
+    }
+}

@@ -1,0 +1,18 @@
+$square-background: #fbfbfb;
+$square-background-hover: #f2f1f7;
+
+.square {
+    height: 100px;
+    width: 100px;
+    background: $square-background;
+    border: 1px solid black;
+    margin: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        background: $square-background-hover;
+        cursor: pointer;
+    }
+}
