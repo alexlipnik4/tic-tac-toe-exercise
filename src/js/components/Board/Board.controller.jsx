@@ -60,6 +60,8 @@ const BoardController = () => {
     if (completedCombination.length === 0) {
       changeBoardData(newBoardData);
     }
+
+    finishMove();
   };
 
   const handleReset = () => {
@@ -77,7 +79,6 @@ const BoardController = () => {
     return (
       <Square
         onClick={() =>
-          currentPlayer === "X" &&
           !checkIfExist(index) &&
           completedCombination.length === 0 &&
           handleSquareClick(index)
@@ -92,26 +93,12 @@ const BoardController = () => {
 
   React.useEffect(() => {
     checkIfCompleted();
+
     if (boardData.length === 9) {
       setStatus(`It's a draw`);
     }
-    if (boardData.length !== 0) {
-      finishMove();
-    }
-  }, [boardData]);
 
-  const randomIndex = () => Math.floor(Math.random() * 8 + 1);
-  React.useEffect(() => {
-    if (currentPlayer === "O") {
-      let index = randomIndex();
-      while (checkIfExist(index)) {
-        index = randomIndex();
-      }
-      setTimeout(() => {
-        handleSquareClick(index);
-      }, 1000);
-    }
-  }, [currentPlayer]);
+  }, [boardData]);
 
   return (
     <BoardView
