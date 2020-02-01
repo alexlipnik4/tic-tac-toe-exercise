@@ -6,7 +6,7 @@ const BoardController = () => {
   const [boardData, changeBoardData] = React.useState([]);
   const [currentPlayer, changeCurrentPlayer] = React.useState("X");
   const [completedCombination, setCombination] = React.useState([]);
-  const [status, setStatus] = React.useState(`Next player: ${currentPlayer}`)
+  const [status, setStatus] = React.useState(`Next player: ${currentPlayer}`);
 
   const checkIfCompleted = () => {
     let combinations = [
@@ -31,8 +31,8 @@ const BoardController = () => {
           counter++;
 
           if (counter === 3) {
-            setCombination(combination)
-            setStatus(`Player ${obj.currentPlayer} Wins !!`)
+            setCombination(combination);
+            setStatus(`Player ${obj.currentPlayer} Wins !!`);
           }
         }
       });
@@ -51,14 +51,15 @@ const BoardController = () => {
     } else {
       changeCurrentPlayer("X");
     }
-  }
+  };
 
   const handleSquareClick = index => {
     const newBoardData = [...boardData];
     newBoardData.push({ index, currentPlayer });
 
-    changeBoardData(newBoardData);
-    finishMove();
+    if (completedCombination.length === 0) {
+      changeBoardData(newBoardData);
+    }
   };
 
   const handleReset = () => {
@@ -75,7 +76,12 @@ const BoardController = () => {
 
     return (
       <Square
-        onClick={() => !checkIfExist(index) && completedCombination.length === 0 && handleSquareClick(index)}
+        onClick={() =>
+          currentPlayer === "X" &&
+          !checkIfExist(index) &&
+          completedCombination.length === 0 &&
+          handleSquareClick(index)
+        }
         squareIndex={index}
         checked={checkIfExist(index)}
         completed={completedCombination.includes(index)}
@@ -86,10 +92,26 @@ const BoardController = () => {
 
   React.useEffect(() => {
     checkIfCompleted();
-    if(boardData.length === 9) {
-      setStatus(`It's a draw`)
+    if (boardData.length === 9) {
+      setStatus(`It's a draw`);
     }
-  }, [boardData]); 
+    if (boardData.length !== 0) {
+      finishMove();
+    }
+  }, [boardData]);
+
+  const randomIndex = () => Math.floor(Math.random() * 8 + 1);
+  React.useEffect(() => {
+    if (currentPlayer === "O") {
+      let index = randomIndex();
+      while (checkIfExist(index)) {
+        index = randomIndex();
+      }
+      setTimeout(() => {
+        handleSquareClick(index);
+      }, 1000);
+    }
+  }, [currentPlayer]);
 
   return (
     <BoardView
@@ -100,7 +122,8 @@ const BoardController = () => {
       checkIfExist={checkIfExist}
       handleReset={handleReset}
       currentPlayer={currentPlayer}
-    />);
+    />
+  );
 };
 
 export default BoardController;
